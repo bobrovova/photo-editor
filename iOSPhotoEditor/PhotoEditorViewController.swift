@@ -20,9 +20,6 @@ public final class PhotoEditorViewController: UIViewController {
 
     @IBOutlet weak var topToolbar: UIView!
     @IBOutlet weak var bottomToolbar: UIView!
-
-    @IBOutlet weak var topGradient: UIView!
-    @IBOutlet weak var bottomGradient: UIView!
     
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var deleteView: UIView!
@@ -39,21 +36,21 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     
-    public var image: UIImage?
+    @objc public var image: UIImage?
     /**
      Array of Stickers -UIImage- that the user will choose from
      */
-    public var stickers : [UIImage] = []
+    @objc public var stickers : [UIImage] = []
     /**
      Array of Colors that will show while drawing or typing
      */
-    public var colors  : [UIColor] = []
+    @objc public var colors: [UIColor] = []
     
-    public var photoEditorDelegate: PhotoEditorDelegate?
+    @objc public var photoEditorDelegate: PhotoEditorDelegate?
     var colorsCollectionViewDelegate: ColorsCollectionViewDelegate!
     
     // list of controls to be hidden
-    public var hiddenControls : [control] = []
+    public var hiddenControls : [control] = [.sticker, .save, .share]
     
     var stickersVCIsVisible = false
     var drawColor: UIColor = UIColor.black
@@ -86,6 +83,13 @@ public final class PhotoEditorViewController: UIViewController {
         deleteView.layer.borderWidth = 2.0
         deleteView.layer.borderColor = UIColor.white.cgColor
         deleteView.clipsToBounds = true
+        
+        topToolbar.layer.cornerRadius = 20.0
+        topToolbar.layer.shadowOpacity = 0.25
+        topToolbar.layer.shadowRadius = 4
+        topToolbar.layer.shadowOffset = .zero
+        topToolbar.layer.shadowPath = UIBezierPath(rect: topToolbar.bounds).cgPath
+        
         
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         edgePan.edges = .bottom
@@ -133,9 +137,7 @@ public final class PhotoEditorViewController: UIViewController {
     
     func hideToolbar(hide: Bool) {
         topToolbar.isHidden = hide
-        topGradient.isHidden = hide
         bottomToolbar.isHidden = hide
-        bottomGradient.isHidden = hide
     }
 }
 

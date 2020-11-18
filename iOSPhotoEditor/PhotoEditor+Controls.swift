@@ -128,10 +128,9 @@ extension PhotoEditorViewController {
                 saveButton.isHidden = true
             case .share:
                 shareButton.isHidden = true
-            case .sticker:
-                stickerButton.isHidden = true
             case .text:
                 stickerButton.isHidden = true
+            default: break
             }
         }
     }
